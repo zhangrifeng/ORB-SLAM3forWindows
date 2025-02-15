@@ -5,7 +5,8 @@ We have tested the library in Windows 10, Visual Studio 2015.
 # Reference
 - ORB-SLAM3 project: https://github.com/UZ-SLAMLab/ORB_SLAM3  
 - ORB-SLAM2 for windows: https://github.com/Phylliida/orbslam-windows  
-- ORB-SLAM2 for windows_2: https://github.com/phdsky/ORBSLAM24Windows  
+- ORB-SLAM2 for windows_2: https://github.com/phdsky/ORBSLAM24Windows
+- 从这里克隆下来的，然后加了点注释，把opencv的版本更新到4以上：https://github.com/chanho-code/ORB-SLAM3forWindows
 
 # To do...
 Update from ORB-SLAM3 V0.2 to V0.3
@@ -17,7 +18,7 @@ Update from ORB-SLAM3 V0.2 to V0.3
 
 2. Cmake: Required at least 2.8. (Tested with 3.14.7)
 
-3. OpenCV: Required at least 3.0. (Tested with 3.4.1)
+3. OpenCV: Required at least 4.0. (Tested with 4.5.4)
 
 4. glew (for pangolin): Tested with 2.1.0
 
