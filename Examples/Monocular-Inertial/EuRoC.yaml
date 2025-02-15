@@ -3,30 +3,39 @@
 #--------------------------------------------------------------------------------------------
 # Camera Parameters. Adjust them!
 #--------------------------------------------------------------------------------------------
-Camera.type: "PinHole"
+Camera.type: "PinHole" # 指定相机模型为针孔模型
 
-# Camera calibration and distortion parameters (OpenCV) 
+# Camera calibration and distortion parameters (OpenCV)
+# 相机的焦距，单位是像素。fx 和 fy 分别表示水平方向和垂直方向的焦距。
+# 相机的主点坐标（通常是图像的中心点），表示光轴在图像平面上的投影位置。
 Camera.fx: 458.654
 Camera.fy: 457.296
 Camera.cx: 367.215
 Camera.cy: 248.375
-
+# k1，k2径向畸变系数，表示相机镜头引起的图像畸变程度。
+# p1，p2切向畸变系数，用于修正因镜头安装偏移导致的畸变。
 Camera.k1: -0.28340811
 Camera.k2: 0.07395907
 Camera.p1: 0.00019359
 Camera.p2: 1.76187114e-05
 
-# Camera resolution
+# Camera resolution 相机的分辨率
 Camera.width: 752
 Camera.height: 480
 
-# Camera frames per second 
+# Camera frames per second 相机的帧率
 Camera.fps: 20.0
 
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
 Camera.RGB: 1
 
 # Transformation from camera to body-frame (imu)
+ 相机与IMU坐标系转换 (Transformation from camera to body-frame)
+Tbc
+这是一个4x4的齐次变换矩阵，用于描述相机坐标系到IMU坐标系的转换。矩阵内容为：
+𝑇𝑏𝑐=[𝑅 𝑡
+     0 1]
+其中，R 是旋转矩阵，t 是平移向量。这些数据来自于相机与IMU的外参标定。
 Tbc: !!opencv-matrix
    rows: 4
    cols: 4
@@ -37,43 +46,43 @@ Tbc: !!opencv-matrix
          0.0, 0.0, 0.0, 1.0]
 
 # IMU noise
-IMU.NoiseGyro: 1.7e-4 #1.6968e-04 
-IMU.NoiseAcc: 2.0000e-3 #2.0e-3
-IMU.GyroWalk: 1.9393e-05 
-IMU.AccWalk: 3.0000e-03 # 3e-03
-IMU.Frequency: 200
+IMU.NoiseGyro: 1.7e-4 #1.6968e-04 陀螺仪的测量噪声密度，单位是rad/s/sqrt(Hz)
+IMU.NoiseAcc: 2.0000e-3 #2.0e-3 加速度计的测量噪声密度，单位通常是m/s^2/sqrt(Hz)
+IMU.GyroWalk: 1.9393e-05 # 陀螺仪的偏置随机游走噪声，表示长时间运行时偏置的变化趋势。
+IMU.AccWalk: 3.0000e-03 # 3e-03 加速度计的偏置随机游走噪声。
+IMU.Frequency: 200 # IMU的采样频率（每秒测量次数），单位为Hz
 
 #--------------------------------------------------------------------------------------------
 # ORB Parameters
 #--------------------------------------------------------------------------------------------
 
 # ORB Extractor: Number of features per image
-ORBextractor.nFeatures: 1000 # 1000
+ORBextractor.nFeatures: 1000 # 1000 每帧图像提取的ORB特征点数量。值越大，特征提取越密集，但计算量也会增加。
 
 # ORB Extractor: Scale factor between levels in the scale pyramid 	
-ORBextractor.scaleFactor: 1.2
+ORBextractor.scaleFactor: 1.2 # 金字塔图像层级之间的尺度因子，控制多尺度特征检测的层级间倍数。
 
 # ORB Extractor: Number of levels in the scale pyramid	
-ORBextractor.nLevels: 8
+ORBextractor.nLevels: 8 # 图像金字塔的层数，层数越多，能检测到的尺度范围越广。
 
 # ORB Extractor: Fast threshold
 # Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
 # Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
 # You can lower these values if your images have low contrast			
-ORBextractor.iniThFAST: 20
-ORBextractor.minThFAST: 7
+ORBextractor.iniThFAST: 20 # 初始的FAST角点检测阈值，值越大，检测到的角点越少但更稳定。
+ORBextractor.minThFAST: 7 # 在初始阈值无法检测到足够角点时，使用的最小FAST角点检测阈值。
 
 #--------------------------------------------------------------------------------------------
 # Viewer Parameters
 #--------------------------------------------------------------------------------------------
-Viewer.KeyFrameSize: 0.05
-Viewer.KeyFrameLineWidth: 1
-Viewer.GraphLineWidth: 0.9
-Viewer.PointSize:2
-Viewer.CameraSize: 0.08
-Viewer.CameraLineWidth: 3
-Viewer.ViewpointX: 0
+Viewer.KeyFrameSize: 0.05 # 关键帧在可视化窗口中的显示大小。
+Viewer.KeyFrameLineWidth: 1 # 关键帧边界的线宽。
+Viewer.GraphLineWidth: 0.9 # 优化图中线条的宽度。
+Viewer.PointSize:2 # 地图点的显示大小。
+Viewer.CameraSize: 0.08 # 当前相机视角在可视化窗口中的显示大小。
+Viewer.CameraLineWidth: 3 # 相机边框的线宽。
+Viewer.ViewpointX: 0 # 控制可视化窗口中初始视角的位置（X、Y、Z轴）。
 Viewer.ViewpointY: -0.7
 Viewer.ViewpointZ: -3.5 # -1.8
-Viewer.ViewpointF: 500
+Viewer.ViewpointF: 500 # 控制相机在可视化窗口中的焦距，影响显示缩放效果。
 
