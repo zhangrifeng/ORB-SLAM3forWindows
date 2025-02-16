@@ -48,7 +48,8 @@ Update from ORB-SLAM3 V0.2 to V0.3
 ## Pangolin  
 - Open cmake-gui and Make a 'build' directory in ORB-SLAM3forWindows/Thirdparty/Pangolin
 - Click Configure and select Visual Studio 14 2015 x64.
-- cmake error: could not find git for clone of ... : Disable BUILD_EXTERN_GLEW, LIBJPEG, LIBPNG and input value directly (used GLEW only)  
+- cmake error: could not find git for clone of ... : Disable BUILD_EXTERN_GLEW, LIBJPEG, LIBPNG and input value directly (used GLEW only) ![image](https://github.com/user-attachments/assets/80430ddf-977b-49c9-acf2-6c7a4cbb699e)
+ 
 - If window says Configuring Done, it's OK  
 - Click Generate and open the resulting project in the build directory.  
 - Change build type to Release.  
