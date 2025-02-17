@@ -55,6 +55,7 @@ Update from ORB-SLAM3 V0.2 to V0.3
 - Change build type to Release.  
 - pangolin project -> Properties -> C/C++ Tab -> Code Generation -> Runtime Library: Multi-threaded(/MT)  
 - Build ALL_BUILD. (ignore error "cannot open input file 'pthread.lib') Finish(pangolin.lib).
+- 我还是使用了BUILD_EXTERN_GLEW, LIBJPEG, LIBPNG了，然后修改了CMakeLists的内容
 
 ## ORB-SLAM3 for Windows  
 - Open cmake-gui and make a 'build' directory in ORB-SLAM3forWindows  
