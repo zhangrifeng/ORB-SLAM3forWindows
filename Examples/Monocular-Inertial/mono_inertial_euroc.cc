@@ -141,7 +141,6 @@ int main(int argc, char* argv[])
 	cout << "IMU data in the sequence: " << nImu << endl << endl;*/
 
 	// Create SLAM system. It initializes all system threads and gets ready to process frames.
-	cout << argv[2] << endl;
 	ORB_SLAM3::System SLAM(argv[1], argv[2], ORB_SLAM3::System::IMU_MONOCULAR, true);
 	/*argv[1] 是ORB词汇文件的路径。
 	 argv[2] 是配置文件的路径。
