@@ -55,6 +55,7 @@ Update from ORB-SLAM3 V0.2 to V0.3
 - pangolin project -> Properties -> C/C++ Tab -> Code Generation -> Runtime Library: Multi-threaded(/MT)  
 - Build ALL_BUILD. (ignore error "cannot open input file 'pthread.lib') Finish(pangolin.lib).
 - 使用了BUILD_EXTERN_GLEW, LIBJPEG, LIBPNG，然后修改了CMakeLists的内容
+- 遇到error LNK2019: 无法解析的外部符号 __imp__：要右键项目->清理，再生成
 
 ## ORB-SLAM3 for Windows  
 - Open cmake-gui and make a 'build' directory in ORB-SLAM3forWindows  
