@@ -30,12 +30,6 @@ Camera.fps: 20.0
 Camera.RGB: 1
 
 # Transformation from camera to body-frame (imu)
- 相机与IMU坐标系转换 (Transformation from camera to body-frame)
-Tbc
-这是一个4x4的齐次变换矩阵，用于描述相机坐标系到IMU坐标系的转换。矩阵内容为：
-𝑇𝑏𝑐=[𝑅 𝑡
-     0 1]
-其中，R 是旋转矩阵，t 是平移向量。这些数据来自于相机与IMU的外参标定。
 Tbc: !!opencv-matrix
    rows: 4
    cols: 4
