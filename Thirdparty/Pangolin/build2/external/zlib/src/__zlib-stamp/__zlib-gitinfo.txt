@@ -1,0 +1,15 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=git
+command=D:/cpp/cmake-3.31.3-windows-x86_64/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;E:/cpp/ORB-SLAM3forWindows/Thirdparty/Pangolin/build2/external/zlib/tmp/__zlib-gitclone.cmake
+source_dir=E:/cpp/ORB-SLAM3forWindows/Thirdparty/Pangolin/build2/external/zlib/src/__zlib
+work_dir=E:/cpp/ORB-SLAM3forWindows/Thirdparty/Pangolin/build2/external/zlib/src
+repository=https://github.com/madler/zlib.git
+remote=origin
+init_submodules=TRUE
+recurse_submodules=--recursive
+submodules=
+CMP0097=NEW
+      

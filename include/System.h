@@ -202,6 +202,8 @@ private:
     // Tracker. It receives a frame and computes the associated camera pose.
     // It also decides when to insert a new keyframe, create some new MapPoints and
     // performs relocalization if tracking fails.
+    /*追踪器。它接收一帧并计算相关的摄像机姿态。它还决定何时插入新的关键帧，
+        创建一些新的映射点，并在跟踪失败时执行重新定位.*/
     Tracking* mpTracker;
 
     // Local Mapper. It manages the local map and performs local bundle adjustment.

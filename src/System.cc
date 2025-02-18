@@ -1,4 +1,4 @@
-/**
+﻿/**
 * This file is part of ORB-SLAM3
 *
 * Copyright (C) 2017-2020 Carlos Campos, Richard Elvira, Juan J. Gómez Rodríguez, José M.M. Montiel and Juan D. Tardós, University of Zaragoza.
@@ -63,11 +63,13 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
         cout << "Monocular-Inertial" << endl;
     else if(mSensor==IMU_STEREO)
         cout << "Stereo-Inertial" << endl;
-
+    cout << strSettingsFile << endl;
     //Check settings file
-    cv::FileStorage fsSettings(strSettingsFile.c_str(), cv::FileStorage::READ);
+    cv::FileStorage fsSettings(strSettingsFile, cv::FileStorage::READ);
+
     if(!fsSettings.isOpened())
     {
+       cout << strSettingsFile << endl;
        cerr << "Failed to open settings file at: " << strSettingsFile << endl;
        exit(-1);
     }
@@ -228,6 +230,10 @@ cv::Mat System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, const
     }   
 
     // Check mode change
+    /*目的：该段代码处理跟踪模式的切换。如果系统处于定位模式（Localization Mode），
+        它会停止局部地图构建器（mpLocalMapper），并将跟踪器切换为仅仅进行跟踪
+        （不进行地图构建）。如果处于 非定位模式（Deactivation Mode），则解除对局部
+        地图构建器的占用。使用 mutex 锁来保证线程安全，防止多线程竞争。*/
     {
         unique_lock<mutex> lock(mMutexMode);
         if(mbActivateLocalizationMode)
@@ -253,6 +259,7 @@ cv::Mat System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, const
     }
 
     // Check reset
+    //该段代码处理是否需要重置跟踪器或重置活动地图。
     {
         unique_lock<mutex> lock(mMutexReset);
         if(mbReset)
@@ -268,16 +275,23 @@ cv::Mat System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, const
             mbResetActiveMap = false;
         }
     }
-
+    /*如果系统使用的是 IMU - 立体传感器（IMU_STEREO），则遍历传入的 IMU 测量数据（vImuMeas），
+        并将其传递给跟踪器(mpTracker->GrabImuData)。*/
     if (mSensor == System::IMU_STEREO)
         for(size_t i_imu = 0; i_imu < vImuMeas.size(); i_imu++)
             mpTracker->GrabImuData(vImuMeas[i_imu]);
 
     // std::cout << "start GrabImageStereo" << std::endl;
+    /*这一行调用了 mpTracker->GrabImageStereo 方法，它接收左图、右图、
+        时间戳和文件名作为输入，并返回相机位姿（Tcw）。
+        GrabImageStereo 会处理立体图像对，通过视觉算法（例如，立体匹配和特征提取）
+        来估计相机的位姿。该函数将返回当前帧的相机位
+        姿 Tcw（Transformation to the World Coordinates）。*/
     cv::Mat Tcw = mpTracker->GrabImageStereo(imLeft,imRight,timestamp,filename);
 
     // std::cout << "out grabber" << std::endl;
-
+    /*这里使用 mutex 锁来保护对系统状态的访问。更新当前的 跟踪状态（mTrackingState）、
+        跟踪的地图点（mTrackedMapPoints）和 跟踪的特征点（mTrackedKeyPointsUn）。*/
     unique_lock<mutex> lock2(mMutexState);
     mTrackingState = mpTracker->mState;
     mTrackedMapPoints = mpTracker->mCurrentFrame.mvpMapPoints;
